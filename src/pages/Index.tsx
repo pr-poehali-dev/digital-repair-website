@@ -41,11 +41,9 @@ const PRICES = [
   { name: 'Реболл / замена чипа', price: 'от 4 500 ₽', note: 'компонентный ремонт' },
 ];
 
-const REVIEWS = [
-  { name: 'Алексей М.', text: 'Восстановили ноутбук после залития кофе за один день. Цена честная, всё работает!', rating: 5 },
-  { name: 'Ирина К.', text: 'Поменяли экран на айфоне за 40 минут прямо при мне. Очень довольна сервисом.', rating: 5 },
-  { name: 'Дмитрий П.', text: 'Собрали игровой ПК, помогли с выбором комплектующих. Профессионалы своего дела.', rating: 5 },
-];
+const YANDEX_ORG_ID = '1012869153';
+const YANDEX_REVIEWS_URL = `https://yandex.ru/maps/org/okey_kompyuter/${YANDEX_ORG_ID}/reviews/`;
+const YANDEX_WIDGET_SRC = `https://yandex.ru/maps-reviews-widget/${YANDEX_ORG_ID}?comments`;
 
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -251,21 +249,27 @@ const Index = () => {
       <section id="reviews" className="py-24">
         <div className="container">
           <SectionHead kicker="Нам доверяют" title="Отзывы клиентов" />
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            {REVIEWS.map((r) => (
-              <div key={r.name} className="glow-card rounded-2xl border border-border bg-card p-7">
-                <div className="flex gap-1 text-primary">
-                  {Array.from({ length: r.rating }).map((_, i) => (
-                    <Icon key={i} name="Star" size={18} className="fill-current" />
-                  ))}
-                </div>
-                <p className="mt-4 text-muted-foreground">«{r.text}»</p>
-                <div className="mt-5 flex items-center gap-3">
-                  <span className="grid place-items-center w-10 h-10 rounded-full bg-primary/10 text-primary font-semibold">{r.name[0]}</span>
-                  <span className="font-semibold">{r.name}</span>
-                </div>
-              </div>
-            ))}
+          <div className="mt-6 flex flex-col items-center gap-2">
+            <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+              <Icon name="MapPin" size={16} className="text-primary" /> Реальные отзывы с Яндекс Карт
+            </span>
+          </div>
+
+          <div className="mt-10 mx-auto max-w-3xl rounded-2xl border border-border bg-card overflow-hidden glow-card">
+            <iframe
+              title="Отзывы Окей Компьютер на Яндекс Картах"
+              src={YANDEX_WIDGET_SRC}
+              className="w-full h-[560px] border-0"
+              loading="lazy"
+            />
+          </div>
+
+          <div className="mt-8 text-center">
+            <Button asChild size="lg" variant="outline" className="font-semibold h-12 px-7 border-border">
+              <a href={YANDEX_REVIEWS_URL} target="_blank" rel="noopener noreferrer">
+                <Icon name="ExternalLink" size={18} className="mr-2" /> Все отзывы на Яндекс Картах
+              </a>
+            </Button>
           </div>
         </div>
       </section>
