@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 
+const SEND_ORDER_URL = 'https://functions.poehali.dev/5bc4e0e5-6e34-4c56-aa8f-a6993b037c1f';
+
 const HERO_IMG = 'https://cdn.poehali.dev/projects/d92c5a4a-128e-4d75-83e1-2ceff391e004/files/52af8c77-9761-4709-966a-2de58961feea.jpg';
 const WORK_LAPTOP = 'https://cdn.poehali.dev/projects/d92c5a4a-128e-4d75-83e1-2ceff391e004/files/31df470f-1614-43c4-99b1-fce873ba6329.jpg';
 const WORK_PHONE = 'https://cdn.poehali.dev/projects/d92c5a4a-128e-4d75-83e1-2ceff391e004/files/890a0ffe-646a-459f-a67b-3fabe892270a.jpg';
@@ -47,6 +49,28 @@ const YANDEX_WIDGET_SRC = `https://yandex.ru/maps-reviews-widget/${YANDEX_ORG_ID
 
 const Index = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', message: '' });
+  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState('loading');
+    try {
+      const res = await fetch(SEND_ORDER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setFormState('success');
+        setForm({ name: '', phone: '', message: '' });
+      } else {
+        setFormState('error');
+      }
+    } catch {
+      setFormState('error');
+    }
+  };
 
   const scrollTo = (id: string) => {
     setMenuOpen(false);
@@ -325,14 +349,44 @@ const Index = () => {
                 </div>
               </div>
 
-              <form onSubmit={(e) => e.preventDefault()} className="rounded-2xl border border-border bg-card p-8">
+              <form onSubmit={handleSubmit} className="rounded-2xl border border-border bg-card p-8">
                 <h3 className="font-display font-semibold text-2xl uppercase">Оставить заявку</h3>
                 <p className="mt-2 text-muted-foreground">Перезвоним за 10 минут и бесплатно проконсультируем.</p>
                 <div className="mt-6 space-y-4">
-                  <input placeholder="Ваше имя" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
-                  <input placeholder="Телефон" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
-                  <textarea placeholder="Что случилось с техникой?" rows={3} className="w-full rounded-xl bg-secondary border border-border px-4 py-3 outline-none focus:border-primary transition-colors resize-none" />
-                  <Button type="submit" size="lg" className="w-full font-semibold h-12">Отправить заявку</Button>
+                  <input
+                    placeholder="Ваше имя *"
+                    required
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors"
+                  />
+                  <input
+                    placeholder="Телефон *"
+                    required
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors"
+                  />
+                  <textarea
+                    placeholder="Что случилось с техникой?"
+                    rows={3}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className="w-full rounded-xl bg-secondary border border-border px-4 py-3 outline-none focus:border-primary transition-colors resize-none"
+                  />
+                  {formState === 'success' && (
+                    <div className="flex items-center gap-2 text-accent font-semibold">
+                      <Icon name="CircleCheck" size={20} /> Заявка отправлена! Перезвоним скоро.
+                    </div>
+                  )}
+                  {formState === 'error' && (
+                    <div className="flex items-center gap-2 text-destructive font-semibold">
+                      <Icon name="CircleAlert" size={20} /> Ошибка. Позвоните нам напрямую.
+                    </div>
+                  )}
+                  <Button type="submit" size="lg" className="w-full font-semibold h-12" disabled={formState === 'loading'}>
+                    {formState === 'loading' ? 'Отправляем...' : 'Отправить заявку'}
+                  </Button>
                 </div>
               </form>
             </div>
