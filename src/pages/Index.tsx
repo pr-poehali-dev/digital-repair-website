@@ -289,20 +289,20 @@ const Index = () => {
                   </span>
                   <div>
                     <div className="text-sm text-muted-foreground">Адрес</div>
-                    <div className="font-semibold text-lg group-hover:text-primary transition-colors">г. Краснодар, ул. Тургенева, 138/1</div>
-                    <div className="text-sm text-muted-foreground">ТЦ «На Тургенева», 1 этаж</div>
+                    <div className="font-semibold text-lg group-hover:text-primary transition-colors">г. Краснодар, ул. Тургенева, 148</div>
                   </div>
                 </a>
 
-                <a href="tel:+78612005008" className="flex gap-4 group">
+                <div className="flex gap-4">
                   <span className="grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary shrink-0">
                     <Icon name="Phone" size={20} />
                   </span>
                   <div>
                     <div className="text-sm text-muted-foreground">Телефон</div>
-                    <div className="font-semibold text-lg group-hover:text-primary transition-colors">+7 (861) 200-50-08</div>
+                    <a href="tel:+79996319313" className="block font-semibold text-lg hover:text-primary transition-colors">+7 (999) 631-93-13</a>
+                    <a href="tel:+79034585385" className="block font-semibold text-lg hover:text-primary transition-colors">+7 (903) 458-53-85</a>
                   </div>
-                </a>
+                </div>
 
                 <div className="flex gap-4">
                   <span className="grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary shrink-0">
@@ -310,7 +310,8 @@ const Index = () => {
                   </span>
                   <div>
                     <div className="text-sm text-muted-foreground">Часы работы</div>
-                    <div className="font-semibold text-lg">Пн–Вс: 9:00 — 20:00</div>
+                    <div className="font-semibold text-lg">Пн — Пт: 09:00 – 19:00</div>
+                    <div className="font-semibold text-lg">Суббота: 10:00 – 17:00</div>
                   </div>
                 </div>
 
