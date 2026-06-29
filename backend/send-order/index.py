@@ -30,8 +30,18 @@ def handler(event: dict, context) -> dict:
             'body': {'error': 'Имя и телефон обязательны'},
         }
 
-    token = os.environ['TELEGRAM_BOT_TOKEN']
-    chat_id = os.environ['TELEGRAM_CHAT_ID']
+    token = os.environ.get('TELEGRAM_BOT_TOKEN', '')
+    chat_id = os.environ.get('TELEGRAM_CHAT_ID', '')
+
+    print(f"token_set={bool(token)}, chat_id_set={bool(chat_id)}, chat_id_value={chat_id!r}")
+
+    if not token or not chat_id:
+        print("ERROR: missing token or chat_id")
+        return {
+            'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': {'error': 'Не настроены секреты бота'},
+        }
 
     text = (
         f"📱 *Новая заявка с сайта*\n\n"
@@ -55,8 +65,17 @@ def handler(event: dict, context) -> dict:
         headers={'Content-Type': 'application/json'},
         method='POST',
     )
-    with urllib.request.urlopen(req) as resp:
-        resp.read()
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            result = resp.read()
+            print(f"Telegram response: {result}")
+    except Exception as e:
+        print(f"Telegram error: {e}")
+        return {
+            'statusCode': 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': {'error': str(e)},
+        }
 
     return {
         'statusCode': 200,
