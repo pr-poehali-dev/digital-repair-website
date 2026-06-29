@@ -1,17 +1,334 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import Icon from '@/components/ui/icon';
+import { Button } from '@/components/ui/button';
+
+const HERO_IMG = 'https://cdn.poehali.dev/projects/d92c5a4a-128e-4d75-83e1-2ceff391e004/files/52af8c77-9761-4709-966a-2de58961feea.jpg';
+const WORK_LAPTOP = 'https://cdn.poehali.dev/projects/d92c5a4a-128e-4d75-83e1-2ceff391e004/files/31df470f-1614-43c4-99b1-fce873ba6329.jpg';
+const WORK_PHONE = 'https://cdn.poehali.dev/projects/d92c5a4a-128e-4d75-83e1-2ceff391e004/files/890a0ffe-646a-459f-a67b-3fabe892270a.jpg';
+
+const NAV = [
+  { id: 'about', label: 'О сервисе' },
+  { id: 'services', label: 'Услуги' },
+  { id: 'portfolio', label: 'Портфолио' },
+  { id: 'prices', label: 'Прайс' },
+  { id: 'reviews', label: 'Отзывы' },
+  { id: 'contacts', label: 'Контакты' },
+];
+
+const SERVICES = [
+  { icon: 'Laptop', title: 'Ремонт ноутбуков', desc: 'Замена матриц, клавиатур, чистка от пыли, восстановление после залития.' },
+  { icon: 'Monitor', title: 'Ремонт ПК', desc: 'Диагностика, апгрейд, сборка, устранение перегрева и сбоев.' },
+  { icon: 'Smartphone', title: 'Смартфоны и планшеты', desc: 'Замена экранов, аккумуляторов, разъёмов, восстановление плат.' },
+  { icon: 'HardDrive', title: 'Восстановление данных', desc: 'Спасаем файлы с HDD, SSD и флешек даже после поломки.' },
+  { icon: 'Cpu', title: 'Чип-пайка', desc: 'Профессиональный ремонт материнских плат на компонентном уровне.' },
+  { icon: 'ShieldCheck', title: 'Удаление вирусов', desc: 'Чистка системы, настройка ПО, защита от повторного заражения.' },
+];
+
+const PORTFOLIO = [
+  { img: WORK_LAPTOP, tag: 'Ноутбук', title: 'Замена матрицы ASUS ZenBook', time: '2 часа' },
+  { img: WORK_PHONE, tag: 'Смартфон', title: 'Замена экрана iPhone 13', time: '40 минут' },
+  { img: HERO_IMG, tag: 'Материнская плата', title: 'Реболл чипа на MacBook Pro', time: '1 день' },
+];
+
+const PRICES = [
+  { name: 'Диагностика', price: 'Бесплатно', note: 'при ремонте у нас' },
+  { name: 'Чистка ноутбука от пыли', price: 'от 1 200 ₽', note: 'с заменой термопасты' },
+  { name: 'Замена экрана смартфона', price: 'от 2 500 ₽', note: 'зависит от модели' },
+  { name: 'Замена аккумулятора', price: 'от 1 500 ₽', note: 'оригинал/аналог' },
+  { name: 'Установка Windows + ПО', price: 'от 1 000 ₽', note: 'с драйверами' },
+  { name: 'Восстановление данных', price: 'от 2 000 ₽', note: 'оплата за результат' },
+  { name: 'Ремонт после залития', price: 'от 3 000 ₽', note: 'после диагностики' },
+  { name: 'Реболл / замена чипа', price: 'от 4 500 ₽', note: 'компонентный ремонт' },
+];
+
+const REVIEWS = [
+  { name: 'Алексей М.', text: 'Восстановили ноутбук после залития кофе за один день. Цена честная, всё работает!', rating: 5 },
+  { name: 'Ирина К.', text: 'Поменяли экран на айфоне за 40 минут прямо при мне. Очень довольна сервисом.', rating: 5 },
+  { name: 'Дмитрий П.', text: 'Собрали игровой ПК, помогли с выбором комплектующих. Профессионалы своего дела.', rating: 5 },
+];
 
 const Index = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const scrollTo = (id: string) => {
+    setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
-      <span className="absolute bottom-8 left-1/2 -translate-x-1/2 inline-block bg-[#FF6637] text-white text-sm px-4 py-2 rounded-full whitespace-nowrap">
-        Подождите 5 минут, Юра создает первую версию проекта с нуля
-      </span>
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      {/* HEADER */}
+      <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/70 border-b border-border">
+        <div className="container flex items-center justify-between h-16">
+          <button onClick={() => scrollTo('about')} className="flex items-center gap-2.5">
+            <span className="grid place-items-center w-9 h-9 rounded-lg bg-primary text-primary-foreground">
+              <Icon name="MonitorSmartphone" size={20} />
+            </span>
+            <span className="font-display font-bold text-lg tracking-wide uppercase">
+              Окей<span className="text-primary">Компьютер</span>
+            </span>
+          </button>
+
+          <nav className="hidden lg:flex items-center gap-7">
+            {NAV.map((n) => (
+              <button key={n.id} onClick={() => scrollTo(n.id)} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                {n.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <a href="tel:+78612000000" className="hidden sm:flex items-center gap-2 text-sm font-semibold">
+              <Icon name="Phone" size={16} className="text-primary" />
+              +7 (861) 200-00-00
+            </a>
+            <Button onClick={() => scrollTo('contacts')} className="hidden sm:inline-flex font-semibold">Заявка</Button>
+            <button className="lg:hidden p-2" onClick={() => setMenuOpen(!menuOpen)}>
+              <Icon name={menuOpen ? 'X' : 'Menu'} size={24} />
+            </button>
+          </div>
+        </div>
+
+        {menuOpen && (
+          <nav className="lg:hidden border-t border-border bg-background px-6 py-4 flex flex-col gap-3 animate-fade-in">
+            {NAV.map((n) => (
+              <button key={n.id} onClick={() => scrollTo(n.id)} className="text-left py-1.5 text-muted-foreground hover:text-primary">
+                {n.label}
+              </button>
+            ))}
+            <Button onClick={() => scrollTo('contacts')} className="mt-2 font-semibold">Оставить заявку</Button>
+          </nav>
+        )}
+      </header>
+
+      {/* HERO */}
+      <section id="about" className="relative pt-32 pb-24 grid-bg">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background" />
+        <div className="container relative grid lg:grid-cols-2 gap-12 items-center">
+          <div className="float-up">
+            <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary border border-primary/30 rounded-full px-4 py-1.5">
+              <span className="w-2 h-2 rounded-full bg-primary pulse-ring" />
+              Сервис №1 в Краснодаре
+            </span>
+            <h1 className="mt-6 font-display font-bold text-5xl md:text-7xl leading-[0.95] uppercase">
+              Ремонт цифровой<br />
+              <span className="text-primary text-glow">техники</span> на отлично
+            </h1>
+            <p className="mt-6 text-lg text-muted-foreground max-w-md">
+              Чиним ноутбуки, ПК, смартфоны и планшеты. Бесплатная диагностика, прозрачные цены и гарантия на каждую работу.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Button size="lg" onClick={() => scrollTo('contacts')} className="font-semibold h-12 px-7">
+                <Icon name="Wrench" size={18} className="mr-2" /> Починить технику
+              </Button>
+              <Button size="lg" variant="outline" onClick={() => scrollTo('prices')} className="font-semibold h-12 px-7 border-border">
+                Узнать цены
+              </Button>
+            </div>
+            <div className="mt-10 flex gap-8">
+              {[['12 000+', 'ремонтов'], ['8 лет', 'на рынке'], ['98%', 'довольных']].map(([n, l]) => (
+                <div key={l}>
+                  <div className="font-display font-bold text-3xl text-primary">{n}</div>
+                  <div className="text-sm text-muted-foreground">{l}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="float-up" style={{ animationDelay: '.15s' }}>
+            <div className="relative rounded-2xl overflow-hidden border border-border glow-card">
+              <img src={HERO_IMG} alt="Ремонт техники" className="w-full h-[460px] object-cover" />
+              <div className="absolute bottom-4 left-4 right-4 backdrop-blur-md bg-background/70 rounded-xl border border-border p-4 flex items-center gap-3">
+                <Icon name="Clock" size={22} className="text-primary" />
+                <div>
+                  <div className="font-semibold">Срочный ремонт за 30 минут</div>
+                  <div className="text-sm text-muted-foreground">Большинство поломок решаем при вас</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section id="services" className="py-24">
+        <div className="container">
+          <SectionHead kicker="Что мы делаем" title="Услуги сервиса" />
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SERVICES.map((s) => (
+              <div key={s.title} className="glow-card rounded-2xl border border-border bg-card p-7">
+                <span className="grid place-items-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-5">
+                  <Icon name={s.icon} size={24} />
+                </span>
+                <h3 className="font-display font-semibold text-xl uppercase tracking-wide">{s.title}</h3>
+                <p className="mt-3 text-muted-foreground">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PORTFOLIO */}
+      <section id="portfolio" className="py-24 bg-card/40 border-y border-border">
+        <div className="container">
+          <SectionHead kicker="Наши работы" title="Примеры ремонтов" />
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {PORTFOLIO.map((p) => (
+              <div key={p.title} className="group glow-card rounded-2xl overflow-hidden border border-border bg-card">
+                <div className="relative h-56 overflow-hidden">
+                  <img src={p.img} alt={p.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <span className="absolute top-4 left-4 text-xs font-semibold uppercase tracking-wide bg-primary text-primary-foreground rounded-full px-3 py-1">{p.tag}</span>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display font-semibold text-lg uppercase">{p.title}</h3>
+                  <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
+                    <Icon name="Timer" size={16} className="text-primary" /> Срок: {p.time}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* PRICES */}
+      <section id="prices" className="py-24">
+        <div className="container">
+          <SectionHead kicker="Прозрачно" title="Средние цены по Краснодару" />
+          <div className="mt-12 grid sm:grid-cols-2 gap-4">
+            {PRICES.map((p) => (
+              <div key={p.name} className="flex items-center justify-between gap-4 glow-card rounded-xl border border-border bg-card px-6 py-5">
+                <div>
+                  <div className="font-semibold">{p.name}</div>
+                  <div className="text-sm text-muted-foreground">{p.note}</div>
+                </div>
+                <div className="font-display font-bold text-xl text-primary whitespace-nowrap">{p.price}</div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-muted-foreground text-center">Итоговая стоимость определяется после бесплатной диагностики.</p>
+        </div>
+      </section>
+
+      {/* WARRANTY */}
+      <section className="py-24 bg-card/40 border-y border-border">
+        <div className="container">
+          <div className="relative rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/10 to-accent/5 p-10 md:p-14 overflow-hidden">
+            <div className="absolute -right-10 -top-10 opacity-10">
+              <Icon name="ShieldCheck" size={220} className="text-primary" />
+            </div>
+            <div className="relative max-w-2xl">
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-primary">
+                <Icon name="BadgeCheck" size={16} /> Гарантия
+              </span>
+              <h2 className="mt-4 font-display font-bold text-4xl md:text-5xl uppercase leading-tight">
+                Гарантия до <span className="text-primary">12 месяцев</span> на все работы
+              </h2>
+              <p className="mt-5 text-lg text-muted-foreground">
+                Мы официально отвечаем за качество ремонта. Если проблема повторится в гарантийный срок — устраним бесплатно. Выдаём чек и гарантийный талон на каждую услугу.
+              </p>
+              <div className="mt-8 grid sm:grid-cols-3 gap-5">
+                {[
+                  ['FileCheck', 'Гарантийный талон', 'на каждый ремонт'],
+                  ['RefreshCw', 'Бесплатный повтор', 'если поломка вернулась'],
+                  ['PackageCheck', 'Оригинальные детали', 'с гарантией поставщика'],
+                ].map(([icon, t, d]) => (
+                  <div key={t} className="flex gap-3">
+                    <Icon name={icon} size={22} className="text-primary shrink-0 mt-0.5" />
+                    <div>
+                      <div className="font-semibold">{t}</div>
+                      <div className="text-sm text-muted-foreground">{d}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section id="reviews" className="py-24">
+        <div className="container">
+          <SectionHead kicker="Нам доверяют" title="Отзывы клиентов" />
+          <div className="mt-12 grid md:grid-cols-3 gap-6">
+            {REVIEWS.map((r) => (
+              <div key={r.name} className="glow-card rounded-2xl border border-border bg-card p-7">
+                <div className="flex gap-1 text-primary">
+                  {Array.from({ length: r.rating }).map((_, i) => (
+                    <Icon key={i} name="Star" size={18} className="fill-current" />
+                  ))}
+                </div>
+                <p className="mt-4 text-muted-foreground">«{r.text}»</p>
+                <div className="mt-5 flex items-center gap-3">
+                  <span className="grid place-items-center w-10 h-10 rounded-full bg-primary/10 text-primary font-semibold">{r.name[0]}</span>
+                  <span className="font-semibold">{r.name}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACTS */}
+      <section id="contacts" className="py-24 bg-card/40 border-t border-border">
+        <div className="container grid lg:grid-cols-2 gap-12">
+          <div>
+            <SectionHead kicker="Свяжитесь с нами" title="Контакты" align="left" />
+            <div className="mt-10 space-y-6">
+              {[
+                ['MapPin', 'Адрес', 'г. Краснодар, ул. Красная, 100'],
+                ['Phone', 'Телефон', '+7 (861) 200-00-00'],
+                ['Mail', 'Почта', 'service@okcomputer.ru'],
+                ['Clock', 'Часы работы', 'Ежедневно с 9:00 до 21:00'],
+              ].map(([icon, t, d]) => (
+                <div key={t} className="flex gap-4">
+                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary shrink-0">
+                    <Icon name={icon} size={20} />
+                  </span>
+                  <div>
+                    <div className="text-sm text-muted-foreground">{t}</div>
+                    <div className="font-semibold text-lg">{d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <form onSubmit={(e) => e.preventDefault()} className="rounded-2xl border border-border bg-card p-8">
+            <h3 className="font-display font-semibold text-2xl uppercase">Оставить заявку</h3>
+            <p className="mt-2 text-muted-foreground">Перезвоним за 10 минут и бесплатно проконсультируем.</p>
+            <div className="mt-6 space-y-4">
+              <input placeholder="Ваше имя" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
+              <input placeholder="Телефон" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
+              <textarea placeholder="Что случилось с техникой?" rows={4} className="w-full rounded-xl bg-secondary border border-border px-4 py-3 outline-none focus:border-primary transition-colors resize-none" />
+              <Button type="submit" size="lg" className="w-full font-semibold h-12">Отправить заявку</Button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-border py-10">
+        <div className="container flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2.5">
+            <span className="grid place-items-center w-8 h-8 rounded-lg bg-primary text-primary-foreground">
+              <Icon name="MonitorSmartphone" size={18} />
+            </span>
+            <span className="font-display font-bold uppercase tracking-wide text-foreground">Окей Компьютер</span>
+          </div>
+          <p>© 2026 Окей Компьютер · Ремонт техники в Краснодаре</p>
+        </div>
+      </footer>
     </div>
   );
 };
+
+const SectionHead = ({ kicker, title, align = 'center' }: { kicker: string; title: string; align?: 'center' | 'left' }) => (
+  <div className={align === 'center' ? 'text-center' : 'text-left'}>
+    <span className="text-xs font-semibold uppercase tracking-widest text-primary">{kicker}</span>
+    <h2 className="mt-3 font-display font-bold text-4xl md:text-5xl uppercase">{title}</h2>
+  </div>
+);
 
 export default Index;
