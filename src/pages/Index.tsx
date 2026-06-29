@@ -295,7 +295,7 @@ const Index = () => {
               </a>
             </Button>
             <Button asChild size="lg" variant="outline" className="font-semibold h-12 px-7 border-border">
-              <a href="https://2gis.ru/krasnodar/firm/70000001093689691/tab/reviews" target="_blank" rel="noopener noreferrer">
+              <a href="https://2gis.ru/krasnodar/inside/3237597887334621/firm/3237490513661667/tab/reviews" target="_blank" rel="noopener noreferrer">
                 <Icon name="ExternalLink" size={18} className="mr-2" /> Все отзывы на 2ГИС
               </a>
             </Button>
