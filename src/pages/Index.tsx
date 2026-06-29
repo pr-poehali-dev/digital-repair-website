@@ -193,7 +193,7 @@ const Index = () => {
       {/* PORTFOLIO */}
       <section id="portfolio" className="py-24 bg-card/40 border-y border-border">
         <div className="container">
-          <SectionHead kicker="Наши работы" title="Примеры ремонтов" />
+          <SectionHead kicker="Наши работы" title="Примеры ремонтов" kickerSize="lg" titleSize="sm" />
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             {PORTFOLIO.map((p) => (
               <div key={p.title} className="group glow-card rounded-2xl overflow-hidden border border-border bg-card">
@@ -216,7 +216,7 @@ const Index = () => {
       {/* PRICES */}
       <section id="prices" className="py-24">
         <div className="container">
-          <SectionHead kicker="Прозрачно" title="Средние цены по Краснодару" />
+          <SectionHead kicker="Прозрачно" title="Средние цены по Краснодару" kickerSize="lg" titleSize="sm" />
           <div className="mt-12 grid sm:grid-cols-2 gap-4">
             {PRICES.map((p) => (
               <div key={p.name} className="flex items-center justify-between gap-4 glow-card rounded-xl border border-border bg-card px-6 py-5">
@@ -272,7 +272,7 @@ const Index = () => {
       {/* REVIEWS */}
       <section id="reviews" className="py-24">
         <div className="container">
-          <SectionHead kicker="Нам доверяют" title="Отзывы клиентов" />
+          <SectionHead kicker="Нам доверяют" title="Отзывы клиентов" kickerSize="lg" titleSize="sm" />
           <div className="mt-6 flex flex-col items-center gap-2">
             <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
               <Icon name="MapPin" size={16} className="text-primary" /> Реальные отзывы с Яндекс Карт
@@ -301,7 +301,7 @@ const Index = () => {
       {/* CONTACTS */}
       <section id="contacts" className="py-24 bg-card/40 border-t border-border">
         <div className="container">
-          <SectionHead kicker="Свяжитесь с нами" title="Контакты" />
+          <SectionHead kicker="Свяжитесь с нами" title="Контакты" kickerSize="lg" titleSize="sm" />
 
           <div className="mt-12 grid lg:grid-cols-2 gap-8">
             {/* Left: info + form */}
