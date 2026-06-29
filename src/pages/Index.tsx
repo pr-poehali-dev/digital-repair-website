@@ -76,9 +76,9 @@ const Index = () => {
           </nav>
 
           <div className="flex items-center gap-3">
-            <a href="tel:+78612000000" className="hidden sm:flex items-center gap-2 text-sm font-semibold">
+            <a href="tel:+79996319313" className="hidden sm:flex items-center gap-2 text-sm font-semibold hover:text-primary transition-colors">
               <Icon name="Phone" size={16} className="text-primary" />
-              +7 (861) 200-00-00
+              +7 (999) 631-93-13
             </a>
             <Button onClick={() => scrollTo('contacts')} className="hidden sm:inline-flex font-semibold">Заявка</Button>
             <button className="lg:hidden p-2" onClick={() => setMenuOpen(!menuOpen)}>
