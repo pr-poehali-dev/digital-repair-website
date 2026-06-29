@@ -252,7 +252,7 @@ const Index = () => {
               <div className="mt-8 grid sm:grid-cols-3 gap-5">
                 {[
                   ['FileCheck', 'Гарантийный талон', 'на каждый ремонт'],
-                  ['RefreshCw', 'Бесплатный повтор', 'если поломка вернулась'],
+                  ['RefreshCw', 'Бесплатный ремонт', 'если поломка вернулась'],
                   ['PackageCheck', 'Оригинальные детали', 'с гарантией поставщика'],
                 ].map(([icon, t, d]) => (
                   <div key={t} className="flex gap-3">
