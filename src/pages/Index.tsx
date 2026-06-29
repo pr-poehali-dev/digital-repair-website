@@ -276,39 +276,76 @@ const Index = () => {
 
       {/* CONTACTS */}
       <section id="contacts" className="py-24 bg-card/40 border-t border-border">
-        <div className="container grid lg:grid-cols-2 gap-12">
-          <div>
-            <SectionHead kicker="Свяжитесь с нами" title="Контакты" align="left" />
-            <div className="mt-10 space-y-6">
-              {[
-                ['MapPin', 'Адрес', 'г. Краснодар, ул. Красная, 100'],
-                ['Phone', 'Телефон', '+7 (861) 200-00-00'],
-                ['Mail', 'Почта', 'service@okcomputer.ru'],
-                ['Clock', 'Часы работы', 'Ежедневно с 9:00 до 21:00'],
-              ].map(([icon, t, d]) => (
-                <div key={t} className="flex gap-4">
+        <div className="container">
+          <SectionHead kicker="Свяжитесь с нами" title="Контакты" />
+
+          <div className="mt-12 grid lg:grid-cols-2 gap-8">
+            {/* Left: info + form */}
+            <div className="flex flex-col gap-8">
+              <div className="rounded-2xl border border-border bg-card p-8 space-y-5">
+                <a href="https://yandex.ru/maps/org/okey_kompyuter/1012869153/" target="_blank" rel="noopener noreferrer" className="flex gap-4 group">
                   <span className="grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary shrink-0">
-                    <Icon name={icon} size={20} />
+                    <Icon name="MapPin" size={20} />
                   </span>
                   <div>
-                    <div className="text-sm text-muted-foreground">{t}</div>
-                    <div className="font-semibold text-lg">{d}</div>
+                    <div className="text-sm text-muted-foreground">Адрес</div>
+                    <div className="font-semibold text-lg group-hover:text-primary transition-colors">г. Краснодар, ул. Тургенева, 138/1</div>
+                    <div className="text-sm text-muted-foreground">ТЦ «На Тургенева», 1 этаж</div>
+                  </div>
+                </a>
+
+                <a href="tel:+78612005008" className="flex gap-4 group">
+                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary shrink-0">
+                    <Icon name="Phone" size={20} />
+                  </span>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Телефон</div>
+                    <div className="font-semibold text-lg group-hover:text-primary transition-colors">+7 (861) 200-50-08</div>
+                  </div>
+                </a>
+
+                <div className="flex gap-4">
+                  <span className="grid place-items-center w-11 h-11 rounded-xl bg-primary/10 text-primary shrink-0">
+                    <Icon name="Clock" size={20} />
+                  </span>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Часы работы</div>
+                    <div className="font-semibold text-lg">Пн–Вс: 9:00 — 20:00</div>
                   </div>
                 </div>
-              ))}
+
+                <div className="pt-2">
+                  <Button asChild variant="outline" className="w-full font-semibold border-border">
+                    <a href="https://yandex.ru/maps/org/okey_kompyuter/1012869153/" target="_blank" rel="noopener noreferrer">
+                      <Icon name="Map" size={16} className="mr-2" /> Открыть на Яндекс Картах
+                    </a>
+                  </Button>
+                </div>
+              </div>
+
+              <form onSubmit={(e) => e.preventDefault()} className="rounded-2xl border border-border bg-card p-8">
+                <h3 className="font-display font-semibold text-2xl uppercase">Оставить заявку</h3>
+                <p className="mt-2 text-muted-foreground">Перезвоним за 10 минут и бесплатно проконсультируем.</p>
+                <div className="mt-6 space-y-4">
+                  <input placeholder="Ваше имя" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
+                  <input placeholder="Телефон" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
+                  <textarea placeholder="Что случилось с техникой?" rows={3} className="w-full rounded-xl bg-secondary border border-border px-4 py-3 outline-none focus:border-primary transition-colors resize-none" />
+                  <Button type="submit" size="lg" className="w-full font-semibold h-12">Отправить заявку</Button>
+                </div>
+              </form>
+            </div>
+
+            {/* Right: Yandex Map */}
+            <div className="rounded-2xl border border-border overflow-hidden glow-card min-h-[500px] lg:min-h-0">
+              <iframe
+                title="Окей Компьютер на карте"
+                src="https://yandex.ru/map-widget/v1/?ll=38.964469%2C45.066147&z=16&pt=38.964469,45.066147,pm2rdm&org=1012869153"
+                className="w-full h-full min-h-[500px] border-0"
+                loading="lazy"
+                allowFullScreen
+              />
             </div>
           </div>
-
-          <form onSubmit={(e) => e.preventDefault()} className="rounded-2xl border border-border bg-card p-8">
-            <h3 className="font-display font-semibold text-2xl uppercase">Оставить заявку</h3>
-            <p className="mt-2 text-muted-foreground">Перезвоним за 10 минут и бесплатно проконсультируем.</p>
-            <div className="mt-6 space-y-4">
-              <input placeholder="Ваше имя" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
-              <input placeholder="Телефон" className="w-full h-12 rounded-xl bg-secondary border border-border px-4 outline-none focus:border-primary transition-colors" />
-              <textarea placeholder="Что случилось с техникой?" rows={4} className="w-full rounded-xl bg-secondary border border-border px-4 py-3 outline-none focus:border-primary transition-colors resize-none" />
-              <Button type="submit" size="lg" className="w-full font-semibold h-12">Отправить заявку</Button>
-            </div>
-          </form>
         </div>
       </section>
 
