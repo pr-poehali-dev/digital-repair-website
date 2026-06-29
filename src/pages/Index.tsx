@@ -312,6 +312,7 @@ const Index = () => {
                     <div className="text-sm text-muted-foreground">Часы работы</div>
                     <div className="font-semibold text-lg">Пн — Пт: 09:00 – 19:00</div>
                     <div className="font-semibold text-lg">Суббота: 10:00 – 17:00</div>
+                    <div className="font-semibold text-lg text-muted-foreground">Воскресенье: выходной</div>
                   </div>
                 </div>
 
