@@ -175,7 +175,7 @@ const Index = () => {
       {/* SERVICES */}
       <section id="services" className="py-24">
         <div className="container">
-          <SectionHead kicker="Что мы делаем" title="Услуги сервиса" />
+          <SectionHead kicker="Что мы делаем" title="Услуги сервиса" kickerSize="lg" titleSize="sm" />
           <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {SERVICES.map((s) => (
               <div key={s.title} className="glow-card rounded-2xl border border-border bg-card p-7">
@@ -421,10 +421,10 @@ const Index = () => {
   );
 };
 
-const SectionHead = ({ kicker, title, align = 'center' }: { kicker: string; title: string; align?: 'center' | 'left' }) => (
+const SectionHead = ({ kicker, title, align = 'center', kickerSize = 'sm', titleSize = 'lg' }: { kicker: string; title: string; align?: 'center' | 'left'; kickerSize?: 'sm' | 'lg'; titleSize?: 'sm' | 'lg' }) => (
   <div className={align === 'center' ? 'text-center' : 'text-left'}>
-    <span className="text-xs font-semibold uppercase tracking-widest text-primary">{kicker}</span>
-    <h2 className="mt-3 font-display font-bold text-4xl md:text-5xl uppercase">{title}</h2>
+    <span className={`font-semibold uppercase tracking-widest text-primary ${kickerSize === 'lg' ? 'text-2xl md:text-3xl' : 'text-xs'}`}>{kicker}</span>
+    <h2 className={`mt-3 font-display font-bold uppercase ${titleSize === 'sm' ? 'text-2xl md:text-3xl' : 'text-4xl md:text-5xl'}`}>{title}</h2>
   </div>
 );
 
