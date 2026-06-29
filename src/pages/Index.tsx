@@ -228,7 +228,7 @@ const Index = () => {
               </div>
             ))}
           </div>
-          <p className="mt-6 text-sm text-muted-foreground text-center">Итоговая стоимость определяется после бесплатной диагностики.</p>
+          <p className="mt-6 text-sm text-muted-foreground text-center">Итоговая стоимость определяется после диагностики.</p>
         </div>
       </section>
 
